@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Dependencies
     "rest_framework",
+    "django_filters",
     # Apps
     "api.apps.ApiConfig",
     "trades.apps.TradesConfig",
@@ -74,11 +75,18 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
 
 LANGUAGE_CODE = config.LANGUAGE_CODE
+
+DATETIME_FORMAT = config.DATETIME_FORMAT
 TIME_ZONE = config.TIME_ZONE
-USE_I18N = config.USE_I18N
+
 USE_TZ = config.USE_TZ
+USE_I18N = config.USE_I18N
+
 
 STATIC_URL = 'static/'
 

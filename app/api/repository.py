@@ -1,37 +1,50 @@
+from django.db.models import Count
+from django.db.models import Max, Min
+from core.validators import validate_queryset_after_filters
+from core.validators import validate_queryset_by_symbol
+from trades.models import Stock
 from trades.models import Trade, User
 
 
-class RepositoryUser:
-    model = User
+class RepositoryStock:
+    model = Stock
+    objects = model.objects.prefetch_related("trade")
 
-    def get_all(self):
-        return self.model.objects.all()
-
-    def get_or_create(self, pkid, name):
-        user, created_new_user = self.model.objects.get_or_create(
-            pkid=pkid,
-            name=name
+    @staticmethod
+    def add_annotate_max_and_min(queryset):
+        return queryset.annotate(
+            max=Max("trade__price"),
+            min=Min("trade__price"),
+            count=Count("trade__id")
         )
-        if created_new_user:
-            user.save()
-        return user
-
-
-class RepositoryTrade:
-    model = Trade
 
     def get_all(self):
-        return self.model.objects.all()
+        return self.objects.all()
 
-    def create_new(self, **validate_data):
-        return self.model.objects.create(**validate_data)
+    def get_queryset_by_symbol(self, symbol):
+        get_queryset = self.objects.filter(symbol=symbol)
+        queryset = validate_queryset_by_symbol(get_queryset, symbol)
+        return queryset
 
-    def objects_exists(self, type, user, symbol, price, timestamp):
-        exists = self.model.objects.filter(
-            type=type,
-            user=user,
-            symbol=symbol,
-            price=price,
-            timestamp=timestamp
-        ).exists()
-        return exists
+    def get_or_create(self, **validate_data):
+        obj, created_new_obj = self.objects.get_or_create(**validate_data)
+        if created_new_obj:
+            obj.save()
+            return obj
+        return obj
+
+    def filter_queryset_by_timestamp(self, queryset, start, end):
+        queryset = queryset.filter(trade__timestamp__range=[start, end])
+        queryset = validate_queryset_after_filters(queryset)
+        return queryset
+
+
+class RepositoryUser(RepositoryStock):
+    model = User
+    objects = model.objects
+
+
+class RepositoryTrade(RepositoryStock):
+    model = Trade
+    objects = model.objects.select_related("stock").select_related("user")
+

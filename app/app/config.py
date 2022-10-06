@@ -23,10 +23,13 @@ match BUILD_TYPE:
             }
         }
 
-        LANGUAGE_CODE = "ru-RU"
+        # LANGUAGE_CODE = "ru-RU"
+        LANGUAGE_CODE = "en"
+
+        DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
         TIME_ZONE = 'EST'
         USE_I18N = True
-        USE_TZ = True
+        USE_TZ = False
 
     case "test":
         DEBUG = True
@@ -44,5 +47,5 @@ match BUILD_TYPE:
 
         LANGUAGE_CODE = "ru-RU"
         TIME_ZONE = 'EST'
-        USE_I18N = True
-        USE_TZ = True
+        USE_I18N = False
+        USE_TZ = False
