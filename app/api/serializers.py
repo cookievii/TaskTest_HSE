@@ -51,12 +51,9 @@ class TradeSerializer(serializers.ModelSerializer):
         get_user_name = self.initial_data.get("user").get("name")
         validated_user_name = validate_user_name(get_user_name)
         user = RepositoryUser().get_or_create(name=validated_user_name)
-
         get_symbol = self.initial_data.get("symbol")
         validated_symbol = validate_symbol(get_symbol)
         stock = RepositoryStock().get_or_create(symbol=validated_symbol)
-
         trade = RepositoryTrade().get_or_create(
             user=user, stock=stock, **validated_data)
-
         return trade

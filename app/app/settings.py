@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 from . import config
@@ -21,6 +22,7 @@ INSTALLED_APPS = [
     # Dependencies
     "rest_framework",
     "django_filters",
+    "debug_toolbar",
     # Apps
     "api.apps.ApiConfig",
     "trades.apps.TradesConfig",
@@ -35,6 +37,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'app.urls'
@@ -57,7 +60,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'app.wsgi.application'
 
-
 DATABASES = config.DATABASES
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -76,7 +78,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend']
 }
 
 LANGUAGE_CODE = config.LANGUAGE_CODE
@@ -87,7 +90,13 @@ TIME_ZONE = config.TIME_ZONE
 USE_TZ = config.USE_TZ
 USE_I18N = config.USE_I18N
 
-
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
