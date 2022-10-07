@@ -1,8 +1,7 @@
-from trades.models import Stock
-from trades.models import Trade, User
+from trades.models import Stock, Trade, User
 
 
-class RepositoryStock:
+class StockRepository:
     model = Stock
     objects = model.objects
 
@@ -14,12 +13,11 @@ class RepositoryStock:
         return obj
 
 
-class RepositoryUser(RepositoryStock):
+class UserRepository(StockRepository):
     model = User
     objects = model.objects
 
 
-class RepositoryTrade(RepositoryStock):
+class TradeRepository(StockRepository):
     model = Trade
     objects = model.objects.select_related("stock").select_related("user")
-

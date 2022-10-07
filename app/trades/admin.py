@@ -1,35 +1,20 @@
+from api.repository import StockRepository, TradeRepository, UserRepository
 from django.contrib import admin
 
-from api.repository import RepositoryStock, RepositoryTrade, RepositoryUser
 
-
-@admin.register(RepositoryUser.model)
+@admin.register(UserRepository.model)
 class UserAdmin(admin.ModelAdmin):
-    list_display = (
-        "pkid",
-        "id",
-        "name"
-    )
+    list_display = ("pkid", "id", "name")
     search_fields = ("name",)
 
 
-@admin.register(RepositoryStock.model)
+@admin.register(StockRepository.model)
 class StockAdmin(admin.ModelAdmin):
-    list_display = (
-        "id",
-        "symbol"
-    )
+    list_display = ("id", "symbol")
     search_fields = ("symbol",)
 
 
-@admin.register(RepositoryTrade.model)
+@admin.register(TradeRepository.model)
 class TradeAdmin(admin.ModelAdmin):
-    list_display = (
-        "id",
-        "type",
-        "user",
-        "stock",
-        "price",
-        "timestamp"
-    )
+    list_display = ("id", "type", "user", "stock", "price", "timestamp")
     search_fields = ("type",)

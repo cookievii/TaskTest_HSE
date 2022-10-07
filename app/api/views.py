@@ -1,27 +1,24 @@
+from api.repository import StockRepository, TradeRepository
+from api.serializers import (SimpleStockSerializer, StockSerializer,
+                             TradeSerializer)
+from api.services import StockService
+from core.filters import TradeFilter
+from core.views import UUIDModelViewSet
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK
 
-from api.repository import RepositoryStock
-from api.repository import RepositoryTrade
-from api.serializers import SimpleStockSerializer
-from api.serializers import StockSerializer
-from api.serializers import TradeSerializer
-from api.services import StockService
-from core.filters import TradeFilter
-from core.views import UUIDModelViewSet
-
 
 class TradeViewSet(UUIDModelViewSet):
-    queryset = RepositoryTrade().get_all()
+    queryset = TradeRepository().get_all()
     serializer_class = TradeSerializer
     filterset_class = TradeFilter
 
 
 class StockViewSet(UUIDModelViewSet):
-    queryset = RepositoryStock().get_all()
+    queryset = StockRepository().get_all()
     serializer_class = SimpleStockSerializer
-    lookup_field = 'symbol'
+    lookup_field = "symbol"
 
     @action(methods=["get"], detail=True, url_path="price", url_name="price")
     def price(self, request, symbol=None):
@@ -29,6 +26,7 @@ class StockViewSet(UUIDModelViewSet):
             qs=self.queryset,
             symbol=symbol,
             start=request.query_params.get("start", "0001-01-01"),
-            end=request.query_params.get("end", "9999-01-01"))
+            end=request.query_params.get("end", "9999-01-01"),
+        )
         serializers = StockSerializer(queryset, many=False)
         return Response(serializers.data, status=HTTP_200_OK)

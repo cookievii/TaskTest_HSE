@@ -1,4 +1,5 @@
 import re
+
 from rest_framework.serializers import ValidationError
 
 
@@ -18,16 +19,13 @@ def validate_queryset_after_filters(queryset):
 
 def validate_field_is_not_none(field):
     if field is None:
-        raise ValidationError(
-            {f"error": ["Обязательное поле пропущено."]})
+        raise ValidationError({f"error": ["Обязательное поле пропущено."]})
     return field
 
 
 def validate_forbidden_symbol(name):
     if re.match(r"^[a-zA-Z][a-zA-Z0-9-_\.]{1,150}$", name) is None:
-        raise ValidationError(
-            {f"error": [f"{name} - Должен состоять только из букв."]}
-        )
+        raise ValidationError({f"error": [f"{name} - Должен состоять только из букв."]})
     return name
 
 
