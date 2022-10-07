@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     "api.apps.ApiConfig",
     "trades.apps.TradesConfig",
     "core.apps.CoreConfig",
+    "users.apps.UsersConfig",
 ]
 
 MIDDLEWARE = [
@@ -99,3 +100,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+AUTH_USER_MODEL = "users.User"

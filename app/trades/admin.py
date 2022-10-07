@@ -1,11 +1,5 @@
-from api.repository import StockRepository, TradeRepository, UserRepository
+from api.repository import StockRepository, TradeRepository
 from django.contrib import admin
-
-
-@admin.register(UserRepository.model)
-class UserAdmin(admin.ModelAdmin):
-    list_display = ("pkid", "id", "name")
-    search_fields = ("name",)
 
 
 @admin.register(StockRepository.model)

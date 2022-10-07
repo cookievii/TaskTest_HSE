@@ -17,6 +17,9 @@ class UserRepository(StockRepository):
     model = User
     objects = model.objects
 
+    def get_obj_by_id_and_name(self, id, name):
+        return self.objects.filter(pkid=id, username=name)
+
 
 class TradeRepository(StockRepository):
     model = Trade

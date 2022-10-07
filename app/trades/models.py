@@ -1,12 +1,7 @@
 from core.models import UUIDModel
+from django.contrib.auth.models import AbstractUser
 from django.db import models
-
-
-class User(UUIDModel):
-    name = models.CharField("Имя", max_length=150, unique=True)
-
-    def __str__(self):
-        return self.name
+from users.models import User
 
 
 class Stock(models.Model):

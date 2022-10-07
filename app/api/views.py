@@ -6,13 +6,20 @@ from core.filters import TradeFilter
 from core.views import UUIDModelViewSet
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework.status import HTTP_200_OK
+from rest_framework.status import HTTP_200_OK, HTTP_204_NO_CONTENT
 
 
 class TradeViewSet(UUIDModelViewSet):
     queryset = TradeRepository().get_all()
     serializer_class = TradeSerializer
     filterset_class = TradeFilter
+
+    @action(
+        methods=["delete"], detail=False, url_path="delete_all", url_name="delete_all"
+    )
+    def delete_all(self, request, *args, **kwargs):
+        self.queryset.all().delete()
+        return Response(status=HTTP_204_NO_CONTENT)
 
 
 class StockViewSet(UUIDModelViewSet):
