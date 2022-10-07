@@ -1,5 +1,6 @@
 from api.repository import StockRepository, TradeRepository, UserRepository
-from core.validators import validate_symbol, validate_user_name
+from api.services import UserService
+from core.validators import validate_symbol
 from rest_framework import serializers
 
 from app.settings import DATETIME_FORMAT
@@ -29,6 +30,8 @@ class StockSerializer(SimpleStockSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    name = serializers.CharField(source="username")
+
     class Meta:
         model = UserRepository.model
         fields = ("id", "name")
@@ -44,11 +47,13 @@ class TradeSerializer(serializers.ModelSerializer):
         fields = ("id", "type", "user", "symbol", "price", "timestamp")
 
     def create(self, validated_data):
+        get_user_id = self.initial_data.get("user").get("id")
         get_user_name = self.initial_data.get("user").get("name")
-        validated_user_name = validate_user_name(get_user_name)
-        user = UserRepository().get_or_create(name=validated_user_name)
+        user = UserService().get_user(get_user_id, get_user_name)
+
         get_symbol = self.initial_data.get("symbol")
         validated_symbol = validate_symbol(get_symbol)
+
         stock = StockRepository().get_or_create(symbol=validated_symbol)
         trade = TradeRepository().get_or_create(
             user=user, stock=stock, **validated_data
