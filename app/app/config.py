@@ -1,4 +1,4 @@
-DEBUG = True
+DEBUG = False
 SECRET_KEY = "django-insecure-4zp#fo8+)5c#e4eo68)0@&(f)djrh8=@h(%2s_5fjhkw(k1%u4"
 DATABASES = {
     "default": {
