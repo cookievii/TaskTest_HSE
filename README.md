@@ -115,7 +115,7 @@ docker-compose exec backend python manage.py createsuperuser
   запроса: ```GET``` ```http://127.0.0.1/api/stocks/TEST/```  - Показывать детальный symbol
 
 * Пример
-  запроса: ```GET``` ```http://127.0.0.1/api/stocks/TEST/price?start=2020-06-14&end=2020-06-14```  - Показывать детальный symbol с min(price), max(price) c фильтрацией по дате
+  запроса: ```GET``` ```http://127.0.0.1/api/stocks/TEST/price?start=2020-06-14&end=2020-06-14```  - Показывать детальный symbol с min(price), max(price) и фильтрацией по дате
 
 
 * Обработаны ошибки:
