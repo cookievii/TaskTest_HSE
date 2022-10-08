@@ -86,7 +86,7 @@ docker-compose exec backend python manage.py createsuperuser
 
 ----------
 
-3) Сервис умеет получить список всех добавленных trades.
+3) Сервис умеет получить список всех добавленных trades и детально по uuid.
 
 * Получить все trades:
     * Пример запроса: ```GET``` ```http://127.0.0.1/api/trades/```
@@ -106,13 +106,16 @@ docker-compose exec backend python manage.py createsuperuser
 
 ----------
 
-5) Сервис умеет показывать самой высокой и самой низкой цены
-   (параметр price) по c определенным параметром symbol в заданный период
-   времени
-
+5) Сервис умеет показывать список добавленных symbol-ов, детальный symbol по uuid, детальный symbol с полями max(price) и min(price) и фильтрацией по дате
 
 * Пример
-  запроса: ```GET``` ```http://127.0.0.1/api/stocks/TEST/price?start=2020-06-14&end=2020-06-14```
+  запроса: ```GET``` ```http://127.0.0.1/api/stocks/```  - Показывать все symbol-ы
+
+* Пример
+  запроса: ```GET``` ```http://127.0.0.1/api/stocks/TEST/```  - Показывать детальный symbol
+
+* Пример
+  запроса: ```GET``` ```http://127.0.0.1/api/stocks/TEST/price?start=2020-06-14&end=2020-06-14```  - Показывать детальный symbol с min(price), max(price) c фильтрацией по дате
 
 
 * Обработаны ошибки:
