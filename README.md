@@ -40,7 +40,7 @@ docker-compose exec backend python manage.py createsuperuser
  * После запуска Docker сервер доступен по ссылке:
 
    * Админ панель: ```GET``` ```http://127.0.0.1/admin/```
-   * Доступные энтпоинты: ```GET``` ```http://127.0.0.1/api/```
+   * Доступные эндпоинты: ```GET``` ```http://127.0.0.1/api/```
 
 ----------
 
