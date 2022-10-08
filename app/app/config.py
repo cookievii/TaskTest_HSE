@@ -1,13 +1,20 @@
+import os
+from dotenv import load_dotenv
+
+dotenv_path = os.path.join(os.path.dirname(__file__), '../.env')
+if os.path.exists(dotenv_path):
+    load_dotenv(dotenv_path)
+
 DEBUG = False
-SECRET_KEY = "django-insecure-4zp#fo8+)5c#e4eo68)0@&(f)djrh8=@h(%2s_5fjhkw(k1%u4"
+SECRET_KEY = os.getenv("SECRET_KEY", default="SECRET_KEY")
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "HOST": "db",
-        "PORT": "5432",
-        "NAME": "postgres",
-        "USER": "postgres",
-        "PASSWORD": "postgres",
+        "HOST": os.getenv("DATABASES_HOST", default="db"),
+        "PORT": os.getenv("DATABASES_PORT", default="5432"),
+        "NAME": os.getenv("DATABASES_NAME", default="postgres"),
+        "USER": os.getenv("DATABASES_USER", default="postgres"),
+        "PASSWORD": os.getenv("DATABASES_PASSWORD", default="postgres"),
     }
 }
 
