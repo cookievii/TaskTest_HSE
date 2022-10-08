@@ -6,5 +6,6 @@ class TradeFilter(FilterSet):
     user = CharFilter(method="filter_by_user_id")
 
     def filter_by_user_id(self, queryset, name, value):
+        """Возвращает отфильтрованный queryset по 'id'."""
         queryset = queryset.filter(user_id=value)
         return queryset

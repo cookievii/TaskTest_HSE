@@ -7,6 +7,8 @@ from app.settings import DATETIME_FORMAT
 
 
 class SimpleStockSerializer(serializers.ModelSerializer):
+    """Сериализатор таблицы Stock."""
+
     class Meta:
         model = StockRepository.model
         fields = ("symbol",)
@@ -15,6 +17,8 @@ class SimpleStockSerializer(serializers.ModelSerializer):
 
 
 class StockSerializer(SimpleStockSerializer):
+    """Расщиренный сериализатор таблицы Stock."""
+
     max = serializers.SerializerMethodField()
     min = serializers.SerializerMethodField()
 
@@ -23,13 +27,17 @@ class StockSerializer(SimpleStockSerializer):
         fields = ("symbol", "max", "min")
 
     def get_max(self, obj):
+        """Возвращает annotate поле 'max'."""
         return obj.max
 
     def get_min(self, obj):
+        """Возвращает annotate поле 'min'."""
         return obj.min
 
 
 class UserSerializer(serializers.ModelSerializer):
+    """Сериализатор таблицы User."""
+
     name = serializers.CharField(source="username")
 
     class Meta:
@@ -38,6 +46,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class TradeSerializer(serializers.ModelSerializer):
+    """Сериализатор таблицы Trade."""
+
     user = UserSerializer(read_only=True)
     symbol = serializers.PrimaryKeyRelatedField(read_only=True, source="stock.symbol")
     timestamp = serializers.DateTimeField(format=DATETIME_FORMAT)
@@ -47,9 +57,10 @@ class TradeSerializer(serializers.ModelSerializer):
         fields = ("id", "type", "user", "symbol", "price", "timestamp")
 
     def create(self, validated_data):
+        """Создает новую запись Trade."""
         get_user_id = self.initial_data.get("user").get("id")
         get_user_name = self.initial_data.get("user").get("name")
-        user = UserService().get_user(get_user_id, get_user_name)
+        user = UserService().get_user_or_raise(get_user_id, get_user_name)
 
         get_symbol = self.initial_data.get("symbol")
         validated_symbol = validate_symbol(get_symbol)

@@ -18,6 +18,7 @@ class TradeViewSet(UUIDModelViewSet):
         methods=["delete"], detail=False, url_path="delete_all", url_name="delete_all"
     )
     def delete_all(self, request, *args, **kwargs):
+        """Удаляет все записи 'Trade'."""
         self.queryset.all().delete()
         return Response(status=HTTP_204_NO_CONTENT)
 
@@ -29,6 +30,8 @@ class StockViewSet(UUIDModelViewSet):
 
     @action(methods=["get"], detail=True, url_path="price", url_name="price")
     def price(self, request, symbol=None):
+        """Отобразить Stock,
+        с полями 'max(price)' и 'min(price)' таблицы Trade."""
         queryset = StockService().make_filter_by_symbol_and_add_annotate(
             qs=self.queryset,
             symbol=symbol,

@@ -10,4 +10,6 @@ class UUIDModelViewSet(
     ListModelMixin,
     GenericViewSet,
 ):
+    """Абстрактный ViewSet для таблиц с полями uuid."""
+
     lookup_field = "id"
