@@ -37,6 +37,10 @@ docker-compose up -d --build
 docker-compose exec backend python manage.py createsuperuser
 ```
 
+ * После запуска Docker сервер доступен по ссылке:
+
+   * Пример запроса: ```GET``` ```http://127.0.0.1/api/```
+
 ----------
 
 ### Сделано:
