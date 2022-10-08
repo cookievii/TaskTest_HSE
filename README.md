@@ -33,9 +33,13 @@ cd infra/
 # - Запустите приложения в контейнерах:
 docker-compose up -d --build
 
-# - Создайте суперпользователя Django (Обязательно: username, password):
+# - Создайте суперпользователя Django (Обязательные поля: username, password):
 docker-compose exec backend python manage.py createsuperuser
 ```
+
+ * После запуска Docker сервер доступен по ссылке:
+
+   * Пример запроса: ```GET``` ```http://127.0.0.1/api/```
 
 ----------
 
@@ -46,14 +50,13 @@ docker-compose exec backend python manage.py createsuperuser
    !!! Разночтение по ТЗ - Сделал и то и другое.
 
 * Пример запроса для удаления:
-
     * Удалить все trades:
         * Пример
-          запроса: ```DELETE``` ```http://localhost:8000/api/trades/delete_all/```
+          запроса: ```DELETE``` ```http://127.0.0.1/api/trades/delete_all/```
 
     * Удалить trades по id:
         * Пример
-          запроса: ```DELETE``` ```http://localhost:8000/api/trades/21e9ca93-f35f-46a8-bd19-1844d1695670/```
+          запроса: ```DELETE``` ```http://127.0.0.1/api/trades/21e9ca93-f35f-46a8-bd19-1844d1695670/```
 
 ----------
 
@@ -65,7 +68,7 @@ docker-compose exec backend python manage.py createsuperuser
 
 
 * Добавить trades:
-    * Пример запроса: ```POST``` ```http://localhost:8000/api/trades/```
+    * Пример запроса: ```POST``` ```http://127.0.0.1/api/trades/```
 
 ````
 {
@@ -85,11 +88,11 @@ docker-compose exec backend python manage.py createsuperuser
 3) Сервис умеет получить список всех добавленных trades.
 
 * Получить все trades:
-    * Пример запроса: ```GET``` ```http://localhost:8000/api/trades/```
+    * Пример запроса: ```GET``` ```http://127.0.0.1/api/trades/```
 
 * Получить trades по uuid:
     * Пример
-      запроса: ```GET``` ```http://localhost:8000/api/trades/21e9ca93-f35f-46a8-bd19-1844d1695670```
+      запроса: ```GET``` ```http://127.0.0.1/api/trades/21e9ca93-f35f-46a8-bd19-1844d1695670```
 
 ----------
 
@@ -98,7 +101,7 @@ docker-compose exec backend python manage.py createsuperuser
 
 * Получить все trades определенного пользователя по uuid:
     * Пример
-      запроса: ```GET``` ```http://localhost:8000/api/trades/?user=a882bddf-882b-432a-8e72-0846c4b9c25c```
+      запроса: ```GET``` ```http://127.0.0.1/api/trades/?user=a882bddf-882b-432a-8e72-0846c4b9c25c```
 
 ----------
 
@@ -108,7 +111,7 @@ docker-compose exec backend python manage.py createsuperuser
 
 
 * Пример
-  запроса: ```GET``` ```http://localhost:8000/api/stocks/TEST/price?start=2020-06-14&end=2020-06-14```
+  запроса: ```GET``` ```http://127.0.0.1/api/stocks/TEST/price?start=2020-06-14&end=2020-06-14```
 
 
 * Обработаны ошибки:
