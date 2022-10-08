@@ -28,7 +28,7 @@
 git clone git@github.com:cookievii/TaskTest_HSE.git
 
 # - Перейдите в папку infra репозитория с помощью команды ;
-cd infra/
+cd TaskTest_HSE/infra/
 
 # - Запустите приложения в контейнерах:
 docker-compose up -d --build
