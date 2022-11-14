@@ -25,10 +25,10 @@
 
 ```bash
 # - Cкачайте:
-git clone git@github.com:cookievii/TaskTest_HSE.git
+git clone git@github.com:cookievii/test_task_transactions_for_trading.git
 
 # - Перейдите в папку infra репозитория с помощью команды ;
-cd TaskTest_HSE/infra/
+cd test_task_transactions_for_trading/infra/
 
 # - Запустите приложения в контейнерах:
 docker-compose up -d --build
